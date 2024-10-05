@@ -11,16 +11,20 @@ import axios from "axios";
 // const API_KEY = 'b70dce54-429c-485f-8fc0-192470337735'
 // const API_SECRET = '3Gp9dkbANPWkLg5nsutDheH1WVmrzqlcnVJNk0PDrptx3xIWtyib9hcRr66zH84NRwUdHACTGSZo9Z8sA1eJm0zsCI34OrLeSobUEKhMqfgB7YWClRO5ZHLTE6R81k5zwIHSTtX7yXuqz3MGfjbLGZK7SVS4dwS58xiljtx9TloCIQISOsoIUE7VWu87mwsJqjrMxzpmPlXML6DSc7w5c7xHDpdYaQrQzNjlZkq5sILEDHlHSXSi6OeRZuSYD5uI'
 
-const API_BASE_URL = 'https://iseekblinds-stg.flowrix.app/api/v1/'
-const API_KEY = '961ad121-bdce-444b-8dcb-18fe9582c6aa'
-const API_SECRET = 'i2jtMsRaXTI0O8kElqdg52HcfJAFkZ3AiUn45j4TONuUyqkq46JQbgPcMiWiVIDUNpH4NaBe8fuIQIZWwiy8D4kqsWXCRJrsqpIzCieFkF9YcZMoOXWqBtkM2VjnxXxVTp6EYevzH9KRp7jJuKE7AjZsFWbEbGxNOvo3DfL31yG7cxOjVndejhRUGFrLewWnbCkaGZq9MQAo7alQa0N72dR2dFYwID536tlXJ9UXkuEkw4lFi46Da1ndF80PAj62'
+// const API_BASE_URL = 'https://iseekblinds-stg.flowrix.app/api/v1/'
+// const API_KEY = '961ad121-bdce-444b-8dcb-18fe9582c6aa'
+// const API_SECRET = 'i2jtMsRaXTI0O8kElqdg52HcfJAFkZ3AiUn45j4TONuUyqkq46JQbgPcMiWiVIDUNpH4NaBe8fuIQIZWwiy8D4kqsWXCRJrsqpIzCieFkF9YcZMoOXWqBtkM2VjnxXxVTp6EYevzH9KRp7jJuKE7AjZsFWbEbGxNOvo3DfL31yG7cxOjVndejhRUGFrLewWnbCkaGZq9MQAo7alQa0N72dR2dFYwID536tlXJ9UXkuEkw4lFi46Da1ndF80PAj62'
+
+const API_BASE_URL = import.meta.env.VITE_FLOWRIX_API_BASE_URL
+const API_KEY = import.meta.env.VITE_FLOWRIX_API_KEY
+const API_SECRET = import.meta.env.VITE_FLOWRIX_API_SECRET
 
 //cleint staging
 // const API_BASE_URL = 'https://iseekblinds-stg1.flowrix.app/api/v1/'
 // const API_KEY = '90da510a-7270-46c1-a0f9-cf922ba10ea2'
 // const API_SECRET = '2wpy7rTGniJeisIJY4XF7wi8Vsxz5opbXKlxOrhvyxhfP3lFn7qm6ZfHu6rJj7dxnm5o40J2DBcWczdoNBbzzyy2ACi7OcveeqZg8Y2MuQoQYMUUP9VZjs4PnnMUzOVXsuWhNFuqg7YPXH1x8royU2xXoCh4kyZj3nifALlo2BCtCIt9BFe1SOQRsAK6ucd2ObJXZ59mZshCDTfSYU5EqkFQMJDV6HEuaMeGStLQZiR6jWVFINGPfSZRytGhpKx8'
 
-const axiosInstance = axios.create({
+const  axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -69,4 +73,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+export default axiosInstance

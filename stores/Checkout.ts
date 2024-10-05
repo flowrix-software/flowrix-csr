@@ -145,28 +145,11 @@ export const useCheckoutStore = defineStore('checkout', {
 
         async submitCheckout() {
             try {
-                // const sesisondata = JSON.parse(localStorage.getItem('checkoutSession') as string)
+               
                 const formData = this.checkoutSession.fields
-                // if (sesisondata.deliverytype === 'shipping') {
-                // const itemsToRemove = Object.keys(formData.cart).filter(
-                //     (key) => formData.cart[key].type === 'service'
-                // )
-                // itemsToRemove.forEach((key) => delete formData.cart[key])
-                // }
-
-                // const samples = Object.keys(formData.cart).filter(
-                //     (key) => formData.cart[key].product_type === 'sample'
-                // )
-                // if (samples.length > 0) {
-                //     samples.forEach((key) => (formData.cart[key].id = formData.cart[key].pid))
-                // }
-
-                // if (!sesisondata.hasOwnProperty('order_no')) {
+                
                     const apiUrl = `customer/checkout`
-                    // if (localStorage.getItem('coupons')) {
-                    //     formData.vouchercodes = JSON.parse(localStorage.getItem('coupons') as string)
-                    // }
-                    // delete formData.ewayKey
+                    
 
                     const response = await axiosInstance.post(apiUrl, formData,{
                         headers: {
@@ -177,60 +160,7 @@ export const useCheckoutStore = defineStore('checkout', {
                     if (response.status === 200) {
                         this.responseData = response.data
                         let orderData = response.data.data
-                         console.log(orderData)
-                        window.dataLayer = window.dataLayer || []
-                            window.dataLayer.push({
-                            "remarketing_event": "purchase",
-                            "value": formData.calculations.total,
-                            "items": [
-                                {
-                                    "id": "10",
-                                    "google_business_vertical": "retail"
-                                }
-                            ],
-                            "ecommerce": {
-                                "purchase": {
-                                    "actionField": {
-                                        "id": orderData.order_no,
-                                        "affiliation": "Main Website-iSeekBlinds-Default Store View",
-                                        "order_id": orderData.order_no,
-                                        "subtotal": orderData.subtotal,
-                                        "shipping": orderData.shipping,
-                                        "tax": orderData.tax,
-                                        "revenue": orderData.total,
-                                        "discount": orderData.discount,
-                                        "coupon": orderData.vouchercode,
-                                        "created_at": orderData.created_at,
-                                        "items": "Automate Pulse 2 Hub",
-                                        "items_qty": "Automate Pulse 2 Hub:2"
-                                    },
-                                    "products": formData.cart
-                                },
-                                "currencyCode": "AUD",
-                                "transaction_id": orderData.order_no,
-                                "affiliation": "Main Website-iSeekBlinds-Default Store View",
-                                "value": "538.0000",
-                                "tax": orderData.tax,
-                                "shipping": orderData.shipping,
-                                "currency": "AUD",
-                                "coupon": orderData.vouchercode,
-                                "items": formData.cart
-                            },
-                            "ga4_event": "purchase",
-                            "enhanced": {
-                                "email": formData.email,
-                                "first_name": formData.billing_firstname,
-                                "last_name": formData.billing_lastname,
-                                "phone": formData.billing_mobile,
-                                "street": formData.billing_address,
-                                "city": formData.billing_suburb,
-                                "region": formData.billing_state,
-                                "postal_code": formData.billing_postcode,
-                                "country": "AU"
-                            }
-                        })
                     }
-                // }
             } catch (error: any) {
                 if (error.response) {
                     this.errorResponseData = error.response.data

@@ -4,6 +4,7 @@ import axiosInstance from '../axios/axios-instance';
 
 interface CategoryState {
   data: Record<string, any>;
+  category: Record<string, any>;
   currentPage: number;
   slug: string | null;
   error: string | null;
@@ -12,12 +13,13 @@ interface CategoryState {
 export const useCategories = defineStore('Categories', {
   state: (): CategoryState => ({
     data: {},
+    category:{},
     currentPage: 1,
     slug: null,
     error: null,
   }),
   actions: {
-    async getCategories(slug: string, page: number = this.currentPage) {
+    async getCategories(slug: string, page: number = this.currentPage=1) {
       try {
         this.slug = slug;
         let tags = ''
@@ -30,6 +32,7 @@ export const useCategories = defineStore('Categories', {
         
         if (response.status === 200) {
           this.data = response.data;
+          this.category = response.data.category
           this.error = null;
         } else {
           this.data = {};
@@ -45,11 +48,6 @@ export const useCategories = defineStore('Categories', {
         }
         this.data = {};
       }
-    },
-    async changePage(page: number) {
-      if (this.slug) {
-        await this.getCategories(this.slug, page);
-      }
-    },
+    }
   },
 });
