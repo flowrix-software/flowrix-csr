@@ -53,7 +53,8 @@ export const useCheckoutStore = defineStore('checkout', {
         responseData: [],
         config: {},
         checkoutSession: {},
-        errorResponseData: {}
+        errorResponseData: {},
+        checkCustomer:{}
     }),
 
     actions: {
@@ -187,8 +188,23 @@ export const useCheckoutStore = defineStore('checkout', {
                 console.error('Error confirming payment:', error)
             }
         },
-
+         async CheckUserAccount(email){
+          try{
+            const apiUrl = `customers/search`
+            const response = await axiosInstance.post(apiUrl, {email:email}, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+            })
+            this.checkCustomer = response.data
+            return response.data
+          }catch (error){
+            this.checkCustomer = error.response.data;
+              return error.response.data;
+          }
+        },
         saveToCheckoutSession(fieldsData: fieldData) {
+            console.log(fieldsData)
             this.checkoutSession.fields = {
                 ...this.checkoutSession.fields,
                 ...fieldsData,

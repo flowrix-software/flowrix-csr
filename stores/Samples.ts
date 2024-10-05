@@ -4,20 +4,18 @@ import axiosInstance from '../axios/axios-instance';
 export const useSamples = defineStore('Samples', {
   state: () => ({
     data: {}, 
-    currentPage: 1,
     filters: {}, 
   }),
   actions: {
-    async getSamples(page = this.currentPage, filters = {}) {
+    async getSamples(page = 1, filters = {}) {
       try {
-        this.currentPage = page;
         this.filters = filters;
         
         const filterParams = new URLSearchParams(this.filters).toString();
         const apiUrl = `samples?${filterParams}&page=${page}`;
         const response = await axiosInstance.get(apiUrl);
         
-        if (response.status === 200 && response.data.data) {
+        if (response.status === 200) {
           this.data = response.data.data;
         } else {
           this.data = {}; 

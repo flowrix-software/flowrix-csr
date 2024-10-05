@@ -91,6 +91,7 @@ useBackground:any|null;
 pdpsummary:Record<string, string>|null;
 msgStr:Record<string, string>|null;
 productPrice:Record<number, number>|null;
+productDiscountedPrice:Record<number, number>|null;
 
 }
 
@@ -131,7 +132,8 @@ export const useCustomScript = defineStore('CustomScript', {
         useBackground:false,
         pdpsummary:{},
         msgStr:{},
-        productPrice:0
+        productPrice:0,
+        productDiscountedPrice:0
     }),
     actions: {
         async initprocess() {
@@ -1861,13 +1863,16 @@ export const useCustomScript = defineStore('CustomScript', {
 
 
 
-            document.querySelector(this.rrpriceWrapper).style.display = 'none';
+            // document.querySelector(this.rrpriceWrapper).style.display = 'none';
 
             if (parseFloat(actual_price) > parseFloat(total)) {
-                document.querySelector(this.rrpriceWrapper).style.display = '';
-                document.querySelector(this.rrpriceClass).innerHTML = actual_price.toFixed(2);
-                this.productPrice = actual_price.toFixed(2)
+                this.productDiscountedPrice = actual_price.toFixed(2);
+                // document.querySelector(this.rrpriceWrapper).style.display = '';
+                // document.querySelector(this.rrpriceWrapper+' span').innerHTML = actual_price.toFixed(2);
+                // this.productPrice = actual_price.toFixed(2)
                 // total = rrprice
+            }else{
+                this.productDiscountedPrice = 0;
             }
 
             document.querySelector(this.priceClass).innerHTML = total.toFixed(2);
