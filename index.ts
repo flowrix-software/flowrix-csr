@@ -12,3 +12,6 @@ export { useShopStore } from "./stores/ShopStore";
 export { useSubscription } from "./stores/Subscription";
 export { useUserStore } from "./stores/Userstore";
 export { useCustomScript } from "./stores/CustomScripts/CustomeScript";
+export { default as ShopScript } from "./templates/Shop/Shop";
+export { default as ShopAllScript } from "./templates/Shop/ShopAll";
+export { default as ProdcutCard } from "./templates/Product/ProductCard";
