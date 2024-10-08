@@ -10,7 +10,7 @@ export { useProduct } from "./stores/product";
 export { useSamples } from "./stores/Samples";
 export { useShopStore } from "./stores/ShopStore";
 export { useSubscription } from "./stores/Subscription";
-export { useUserStore } from "./stores/Userstore";
+export { useUserStore } from "./stores/UserStore";
 export { useCustomScript } from "./stores/CustomScripts/CustomeScript";
 
 export { default as shopAllScript } from "./templates/Shop/ShopAll";
