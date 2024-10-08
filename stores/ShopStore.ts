@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance';
-
+import { useRoute } from 'vue-router';
 export const useShopStore = defineStore('ShopStore', {
   state: () => ({
     shop: '',
@@ -17,9 +17,12 @@ export const useShopStore = defineStore('ShopStore', {
         console.error('Error fetching data:', error)
       }
     },
-    async getShop(query: object) {
+    async getShop(page) {
       try {
-        const response = await axiosInstance.get(`search`, { params: query })
+        const route = useRoute();
+        // route.query.page = page
+        console.log(route.name);
+        const response = await axiosInstance.get(`search`, { params: route.query })
         if (response.status === 200) {
           this.AllShop = response.data.data
         }

@@ -1769,7 +1769,7 @@ export const useCustomScript = defineStore('CustomScript', {
             }
             else if (price_type == PRICE_TYPES['width'] && width > 0)
             {
-                return parseFloat(sqrmeasureprice(price,width,this.UNIT_RELATIVE[PRICE_TYPES['width']]))
+                return parseFloat(this.sqrmeasureprice(price,width,this.UNIT_RELATIVE[PRICE_TYPES['width']]))
             }
             else if (price_type == PRICE_TYPES['height'] && height > 0)
             {

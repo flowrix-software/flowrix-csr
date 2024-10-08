@@ -1,4 +1,4 @@
-import { defineComponent,defineAsyncComponent,ref,onMounted } from "vue";
+import { defineComponent,defineAsyncComponent,ref,onMounted,computed } from "vue";
 import {useCartStore} from '../../stores/Cart'
 
 export default defineComponent({
@@ -15,12 +15,12 @@ export default defineComponent({
   },
   setup(props) {    
     const CartStore = useCartStore()
-    const item = props.item
+    const item =  computed(() => props.item);
     const ProdcutCard = defineAsyncComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_0${props.template}/Product/ProductCard.vue`);
+          return await import(`@/components/template_${props.template}/Product/ProductCard.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           return import(`@/components/template_01/Product/ProductCard.vue`);
