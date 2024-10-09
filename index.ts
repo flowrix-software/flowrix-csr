@@ -14,3 +14,4 @@ export { useUserStore } from "./stores/UserStore";
 export { useCustomScript } from "./stores/CustomScripts/CustomeScript";
 
 export { default as shopAllScript } from "./templates/Shop/ShopAll";
+export { default as SimpleProductScript } from "./templates/Product/SimpleProduct";
