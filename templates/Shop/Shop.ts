@@ -1,8 +1,4 @@
 import { defineComponent,defineAsyncComponent } from 'vue';
-import InnerBanner from '@/components/InnerBanner.vue';
-import Pagination from '@/components/Others/Pagination.vue';
-import ProductCard from '@/components/Product/ProductCard.vue';
-import banner from '@/assets/images/banner.webp';
 import { useShopStore } from '../../stores/ShopStore';
 
 export default defineComponent({
@@ -12,11 +8,6 @@ export default defineComponent({
       type: String,
       required: false
     }
-  },
-  components: {
-    InnerBanner,
-    Pagination,
-    ProductCard
   },
   setup(props) {
     const shop = useShopStore().shop;
@@ -43,7 +34,18 @@ export default defineComponent({
         }
       },
     });
+    
+    const InnerBanner = defineAsyncComponent(() =>
+      import('@/components/InnerBanner.vue')
+    )
 
+    const Pagination = defineAsyncComponent(() =>
+      import('@/components/Others/Pagination.vue')
+    )
+
+    const ProductCard = defineAsyncComponent(() =>
+      import('@/components/Product/ProductCard.vue')
+    )
 
     const CheckProducts = (category: string, productsList: any[]) => {
       return productsList
@@ -54,8 +56,10 @@ export default defineComponent({
       shop,
       CheckProducts,
       ShopTemplate,
+      InnerBanner,
+      Pagination,
+      ProductCard,
       ShopMain,
-      banner, // Ensure banner is returned if used in template
     };
   },
 });
