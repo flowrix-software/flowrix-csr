@@ -26,22 +26,12 @@ export default defineComponent({
     const currentPage = computed(() => useShopStore().AllShop.products.current_page);  
     const lastPage = computed(() => useShopStore().AllShop.products.last_page);  
 
-    const ShopMain = defineAsyncComponent({
-      loader: async () => {
-        try {
-          // Attempt to dynamically import the specified template component
-          return await import(`@/components/ShopAll/ShopMain.vue`);
-        } catch (error) {
-          // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/ShopAll/ShopMain.vue`);
-        }
-      },
-    });
+    
     const ShopTemplate = defineAsyncComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_${props.template}/Shop/ShopAll.vue`);
+          return await import(`@/components/template_01/Shop/ShopAll.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           return import(`@/components/template_01/Shop/ShopAll.vue`);
@@ -56,7 +46,6 @@ export default defineComponent({
       currentPage,
       products,
       lastPage,
-      ShopMain,
       ShopTemplate,
       banner, // Ensure banner is returned if used in template
     };

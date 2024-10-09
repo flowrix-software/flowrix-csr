@@ -6,7 +6,6 @@ import { computed } from 'vue';
 export default defineComponent({
   name: 'SimpleProductScript',
   setup() {
-    const route = useRoute();
     const router = useRouter(); 
     const productData = computed(() => useProduct().data);
 
@@ -14,7 +13,7 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`../SimpleProduct/ProductVariation.vue`);
+          return await import(`@/components/template_01/SimpleProduct/ProductVariation.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           // return import(`@/components/template_01/Product/${data.type}Product.vue`);
@@ -26,7 +25,7 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`./Gallery.vue`);
+          return await import(`@/components/template_01/Product/Gallery.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           // return import(`@/components/template_01/Product/${data.type}Product.vue`);
@@ -38,7 +37,7 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`../SimpleProduct/AddToCart.vue`);
+          return await import(`@/components/template_01/SimpleProduct/AddToCart.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           // return import(`@/components/template_01/Product/${data.type}Product.vue`);
@@ -50,10 +49,7 @@ export default defineComponent({
       await useProduct().getProduct(slug);  
       router.push({ name: 'Product', params: { slug } }); 
     };
-
-
     return {
-      data,
       ProductVariation,
       Gallery,
       AddToCard,

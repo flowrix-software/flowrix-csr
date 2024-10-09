@@ -12,22 +12,12 @@ export default defineComponent({
   setup(props) {
     const shop = useShopStore().shop;
 
-    const ShopMain = defineAsyncComponent({
-      loader: async () => {
-        try {
-          // Attempt to dynamically import the specified template component
-          return await import(`@/components/Shop/ShopMain.vue`);
-        } catch (error) {
-          // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/Shop/ShopMain.vue`);
-        }
-      },
-    });
+    
     const ShopTemplate = defineAsyncComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_0${props.template}/Shop/Shop.vue`);
+          return await import(`@/components/template_01/Shop/Shop.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           return import(`@/components/template_01/Shop/Shop.vue`);
@@ -58,8 +48,7 @@ export default defineComponent({
       ShopTemplate,
       InnerBanner,
       Pagination,
-      ProductCard,
-      ShopMain,
+      ProductCard
     };
   },
 });

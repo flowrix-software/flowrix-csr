@@ -4,7 +4,7 @@ import { useProduct } from '../../stores/Product';
 
 export default defineComponent({
   name: 'ProductScript',
-  setup(props) {
+  setup() {
     const route = useRoute();
     const data = useProduct().data || null;
 
