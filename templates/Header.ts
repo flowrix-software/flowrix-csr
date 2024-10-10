@@ -19,7 +19,8 @@ export default defineComponent({
     const userStore = useUserStore()
 
     const companyProfile = computed(() => CompanyProfile.profile)
-    const menuData = computed<Menu>(() =>{
+
+    const menuData = computed(() =>{
       
      const headmenu =  NavMenu.Menu.filter((menu) => menu.location=='header')[0]
      return headmenu
@@ -38,7 +39,7 @@ export default defineComponent({
       }
     }
 
-    const Menu = defineAsyncComponent({
+    const MainMenu = defineAsyncComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
@@ -60,7 +61,8 @@ export default defineComponent({
       userData,
       menuData,
       mobile_menu,
-      Menu
+      MainMenu,
+      wordpressUrl
       
     };
   },
