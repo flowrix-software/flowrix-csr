@@ -1,32 +1,25 @@
-import { ref ,computed,defineAsyncComponent} from 'vue'
-import { defineComponent } from 'vue';
-import InnerBanner from '@/components/InnerBanner.vue'
-import ProductCard from '@/components/Product/ProductCard.vue'
-import banner from '@/assets/images/banner.webp'
-import Pagination from '@/components/Others/Pagination.vue';
-import { useShopStore } from '../../stores/ShopStore';
+import { computed, defineAsyncComponent } from "vue";
+import { defineComponent } from "vue";
+import { useShopStore } from "../../stores/ShopStore";
 
 export default defineComponent({
-  name: 'ShopAllScript',
-   props: {
+  name: "ShopAllScript",
+  props: {
     template: {
       type: String,
       required: false
     }
   },
-  components: {
-    InnerBanner,
-    Pagination,
-    ProductCard,
-  },
-  setup(props) {
-    const shop = computed(() => useShopStore().AllShop);  
-    const products = computed(() => useShopStore().AllShop.products);  
-    const pagination = computed(() => useShopStore().AllShop.products.links);  
-    const currentPage = computed(() => useShopStore().AllShop.products.current_page);  
-    const lastPage = computed(() => useShopStore().AllShop.products.last_page);  
 
-    
+  setup(props) {
+    const shop = computed(() => useShopStore().AllShop);
+    const products = computed(() => useShopStore().AllShop.products);
+    const pagination = computed(() => useShopStore().AllShop.products.links);
+    const currentPage = computed(
+      () => useShopStore().AllShop.products.current_page
+    );
+    const lastPage = computed(() => useShopStore().AllShop.products.last_page);
+
     const ShopTemplate = defineAsyncComponent({
       loader: async () => {
         try {
@@ -36,9 +29,20 @@ export default defineComponent({
           // If the specified template fails to load, fall back to SimpleProduct1.vue
           return import(`@/components/template_01/Shop/ShopAll.vue`);
         }
-      },
+      }
     });
 
+    const InnerBanner = defineAsyncComponent(
+      () => import("@/components/InnerBanner.vue")
+    );
+
+    const Pagination = defineAsyncComponent(
+      () => import("@/components/Others/Pagination.vue")
+    );
+
+    const ProductCard = defineAsyncComponent(
+      () => import("@/components/Product/ProductCard.vue")
+    );
 
     return {
       shop,
@@ -47,7 +51,9 @@ export default defineComponent({
       products,
       lastPage,
       ShopTemplate,
-      banner, // Ensure banner is returned if used in template
+      InnerBanner,
+      Pagination,
+      ProductCard
     };
-  },
+  }
 });
