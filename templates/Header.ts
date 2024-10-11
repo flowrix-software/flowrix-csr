@@ -1,7 +1,4 @@
 import { computed, ref, defineComponent, defineAsyncComponent } from 'vue'
-import AddMenuIcon1 from '@/assets/images/menu/menu-icon-add-01.svg'
-import AddMenuIcon2 from '@/assets/images/menu/menu-icon-add-02.svg'
-import AddMenuIcon3 from '@/assets/images/menu/menu-icon-add-03.svg'
 import { useCompanyProfile } from '../stores/CompanyProfile'
 import { useNavMenu } from '../stores/NavMenu'
 import { useAuthStore } from '../stores/AuthStore'

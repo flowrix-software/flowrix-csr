@@ -43,14 +43,6 @@ export default defineComponent({
       },
     });
 
-    const InnerBanner = defineAsyncComponent(() =>
-      import('@/components/InnerBanner.vue')
-    )
-
-     const ProductCard = defineAsyncComponent(() =>
-      import(`@/components/Product/ProductCard.vue`)
-    )
-
     const InnerBanner = defineAsyncComponent(
       () => import("@/components/InnerBanner.vue")
     );
@@ -73,9 +65,7 @@ export default defineComponent({
       products,
       lastPage,
       ShopTemplate,
-      InnerBanner,
       Pagination,
-      ProductCard
     };
   }
 });
