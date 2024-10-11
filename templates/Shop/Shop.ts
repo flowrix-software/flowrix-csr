@@ -1,4 +1,4 @@
-import { defineComponent,defineAsyncComponent } from 'vue';
+import { defineComponent,defineAsyncComponent, ref } from 'vue';
 import { useShopStore } from '../../stores/ShopStore';
 
 export default defineComponent({
@@ -10,8 +10,16 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const shop = useShopStore().shop;
+    const shop =ref('')
+    const AllShop =ref('')
+    if(useShopStore().shop){
 
+      shop.value = useShopStore().shop;
+    }
+    if(useShopStore().AllShop){
+
+      AllShop.value = useShopStore().AllShop;
+    }
     
     const ShopTemplate = defineAsyncComponent({
       loader: async () => {
@@ -44,6 +52,7 @@ export default defineComponent({
     };
     return {
       shop,
+      AllShop,
       CheckProducts,
       ShopTemplate,
       InnerBanner,

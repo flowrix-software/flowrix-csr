@@ -45,10 +45,6 @@ export default defineComponent({
         }
     }
 
-    onMounted(() => {
-        isProductInCart(item.slug);
-    });
-
     const updateQuantity = async (product: object, quantity: number) => {
         const SingleProduct = Object.values(CartStore.cart.items).find(item => item.slug === product.slug);
         await CartStore.updateQuantity(SingleProduct, quantity)
@@ -77,7 +73,8 @@ export default defineComponent({
       addToCart,
       updateQuantity,
       checkInCart,
-      productQty
+      productQty,
+      isProductInCart
     };
   },
 });
