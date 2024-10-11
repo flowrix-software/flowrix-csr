@@ -1,9 +1,6 @@
 import { ref ,computed,defineAsyncComponent} from 'vue'
 import { defineComponent } from 'vue';
-import InnerBanner from '@/components/InnerBanner.vue'
-import ProductCard from '@/components/Product/ProductCard.vue'
 import banner from '@/assets/images/banner.webp'
-import Pagination from '@/components/Others/Pagination.vue';
 import { useShopStore } from '../../stores/ShopStore';
 
 export default defineComponent({
@@ -13,11 +10,6 @@ export default defineComponent({
       type: String,
       required: false
     }
-  },
-  components: {
-    InnerBanner,
-    Pagination,
-    ProductCard,
   },
   setup(props) {
     const shop = computed(() => useShopStore().AllShop);  
@@ -38,11 +30,33 @@ export default defineComponent({
         }
       },
     });
+    const PaginationComponent = defineAsyncComponent({
+      loader: async () => {
+        try {
+          // Attempt to dynamically import the specified template component
+          return await import(`@/components/Others/Pagination.vue`);
+        } catch (error) {
+          // If the specified template fails to load, fall back to SimpleProduct1.vue
+          return import(`@/components/Others/Pagination.vue`);
+        }
+      },
+    });
+
+    const InnerBanner = defineAsyncComponent(() =>
+      import('@/components/InnerBanner.vue')
+    )
+
+     const ProductCard = defineAsyncComponent(() =>
+      import(`@/components/Product/ProductCard.vue`)
+    )
 
 
     return {
       shop,
       pagination,
+      PaginationComponent,
+      ProductCard,
+      InnerBanner,
       currentPage,
       products,
       lastPage,

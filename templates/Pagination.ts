@@ -22,14 +22,18 @@ export default defineComponent({
     currentPage: {
       type: String,
       required: true
+    },
+    query: {
+      type: Object,
+      required: true
     }
   },
   setup(props) {
-    const route = useRoute();
-      const ChangePage =(async(slug,page)=>{
+      const ChangePage =(async(slug,page,route)=>{
+      console.log(route.query.page = page)
         scrollToPosition();
         if(route.meta.paged_route=='ShopAll_paged' || route.name=='ShopAll_paged'){
-          await useShopStore().getShop(page);
+          await useShopStore().getShop(route.query);
         }else{
           await useCategories().getCategories(slug,page);
         }
@@ -47,7 +51,6 @@ export default defineComponent({
       const windoWidth = window.innerWidth
 
     return {
-      route,
       ChangePage,
       windoWidth
     };
