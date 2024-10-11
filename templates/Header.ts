@@ -2,7 +2,7 @@ import { computed, ref, defineComponent, defineAsyncComponent } from 'vue'
 import { useCompanyProfile } from '../stores/CompanyProfile'
 import { useNavMenu } from '../stores/NavMenu'
 import { useAuthStore } from '../stores/AuthStore'
-import { useUserStore } from '../stores/Userstore'
+import { useUserstore } from '../stores/Userstore'
 import { useCartStore } from '../stores/Cart'
 
 export default defineComponent({
@@ -13,7 +13,7 @@ export default defineComponent({
     const CompanyProfile = useCompanyProfile()
     const authStore = useAuthStore()
     const cartStore = useCartStore()
-    const userStore = useUserStore()
+    const userStore = useUserstore()
 
     const companyProfile = computed(() => CompanyProfile.profile)
 

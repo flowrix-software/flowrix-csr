@@ -1,6 +1,4 @@
-import { ref ,computed} from 'vue'
 import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
 import { useCategories } from '../stores/Categories';
 import { useShopStore } from '../stores/ShopStore';
 
