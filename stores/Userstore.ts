@@ -25,7 +25,7 @@ interface UserState {
   successResponse: string;
 }
 
-export const useUserStore = defineStore('UserStore', {
+export const useUserstore = defineStore('Userstore', {
   state: (): UserState => ({
     user: [],
     countries: [],
