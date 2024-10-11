@@ -2,7 +2,7 @@ import { computed, ref, defineComponent, defineAsyncComponent } from 'vue'
 import { useCompanyProfile } from '../stores/CompanyProfile'
 import { useNavMenu } from '../stores/NavMenu'
 import { useAuthStore } from '../stores/AuthStore'
-import { useUserStore } from '../stores/UserStore'
+import { useUserStore } from '../stores/Userstore'
 import { useCartStore } from '../stores/Cart'
 
 export default defineComponent({
