@@ -9,10 +9,7 @@ import { useUserStore } from "../../stores/UserStore";
 export default defineComponent({
   name: 'FooterScript',  
   setup() {
-  	let stripe: any;
-	let elements: any;
-	const loader = 'auto'
-	const router = useRouter()
+  	const router = useRouter()
 	const cartStore = useCartStore()
 	const checkoutStore = useCheckoutStore()
 	const CountryData = useCountryStore()
@@ -188,90 +185,7 @@ export default defineComponent({
 	    resetpaymentoptions()
 	})
 
-	const getpaymentMethod = async (paymentMethod: string) => {
-	    try {
-	        inputData.value.paymentmethod = paymentMethod
-
-	        const newPrice = parseFloat(totalPrice.value.total)
-	        if (paymentMethod == 'web-stripe' && stripe !== null) {
-	            const appearance = {
-	                theme: 'stripe'
-	            }
-	            await checkoutStore.paymentMethods({
-	                clientsceret: checkoutStore.publishableKey.clientsceret,
-	                paymentmethod: paymentMethod,
-	                total: newPrice * 100
-	            })
-	            const clientSecret = checkoutStore.publishableKey.clientsceret
-	            stripe = await loadStripe(checkoutStore.publishableKey.key)
-	            elements = stripe.elements({ appearance, clientSecret, loader })
-	            // const linkAuthenticationElement = elements.create("linkAuthentication");
-
-	            const paymentElementOptions = {
-	                layout: {
-	                    type: 'tabs',
-	                }
-	            }
-	            // Mount the Elements to their corresponding DOM node
-	            const cardElement = elements.create('payment', paymentElementOptions)
-	            cardElement.mount('#card-element')
-	        }
-	        if (paymentMethod == 'web-zippay' || paymentMethod == 'web-direct-deposit' || paymentMethod == 'web-paypal' || paymentMethod == 'web-eway') {
-	            await checkoutStore.paymentMethods({
-	                paymentmethod: paymentMethod,
-	                total: newPrice
-	            })
-	            if (paymentMethod == 'web-eway') {
-	                inputData.value.ewayKey = checkoutStore.publishableKey.key
-	            }
-	        }
-
-	        if (paymentMethod == 'web-till-payment') {
-	            await checkoutStore.paymentMethods({
-	                paymentmethod: paymentMethod,
-	                total: newPrice
-	            })
-
-	            payment.init('TFtrYq0SAcyy5l2cxi3a', 'number_div', 'cvv_div', function (payment) {
-	                payment.setNumberStyle({
-	                    'width': '100%',
-	                    'height': '100%',
-	                    'border': 'none',
-	                    'input:focus-visible': {
-	                        'outline': '-webkit-focus-ring-color auto 0px'
-	                    }
-	                });
-	                payment.setCvvStyle({
-	                    'width': '100%',
-	                    'height': '100%',
-	                    'border': 'none'
-	                });
-	                payment.numberOn('input', function () {
-	                    console.log(inputData.value)
-	                    var data = {
-	                        card_holder: inputData.value.till_cardname,
-	                        month: inputData.value.till_expirymonth,
-	                        year: inputData.value.till_expiryyear,
-	                    };
-	                    payment.tokenize(data, //additional data, MUST include card_holder (or first_name & last_name), month and year
-	                        function (token: string) { //success callback function
-	                            inputData.value.clientsceret = token
-	                        },
-	                        function (errors) { //error callback function
-	                            console.log(errors)
-	                            //render error information here
-	                        }
-	                    )
-	                })
-	            });
-
-	        }
-	        checkoutStore.saveToCheckoutSession(inputData.value)
-	    } catch (error) {
-	        console.log('Error', error)
-	    }
-	}
-
+	
 	const states = ref([])
 	const getStates = computed(() => {
 	    if (countries.value.length > 0) {
@@ -452,30 +366,9 @@ export default defineComponent({
 		import('@/components/template_01/Checkout/AuthorityToLeave.vue')
 	)
 
-	const Stripe = defineAsyncComponent(() =>
-		import('@/components/template_01/Checkout/PaymentMethods/Stripe.vue')
+	const PaymentMethods = defineAsyncComponent(() =>
+		import('@/components/template_01/Checkout/PaymentMethods/PaymentMethods.vue')
 	)
-
-	const Eway = defineAsyncComponent(() =>
-		import('@/components/template_01/Checkout/PaymentMethods/Eway.vue')
-	)
-
-	const Till = defineAsyncComponent(() =>
-		import('@/components/template_01/Checkout/PaymentMethods/Till.vue')
-	)
-	//Dynamic Component Import for Payment Options
-	function getPaymentComponent(methodKey: string) {
-	    switch (methodKey) {
-	        case 'web-eway':
-	            return Eway;
-	        case 'web-till-payment':
-	            return Till;
-	        case 'web-stripe':
-	            return Stripe;
-	        default:
-	            return null;
-	    }
-	}
 
 	return{
 		inputData,
@@ -489,13 +382,8 @@ export default defineComponent({
 		Calculations,
 		Order,
 		AuthorityToLeave,
-		Stripe,
-		Eway,
-		Till,
-		getPaymentComponent,
 		totalPrice,
 		deliveryMethods,
-		getpaymentMethod,
 		getStates,
 		shippingMethods,
 		proceedtoNext,
@@ -506,7 +394,8 @@ export default defineComponent({
 		shippingFormEnabled,
 		step_2,
 		step1Valid,
-		step2Valid
+		step2Valid,
+		PaymentMethods
 	}
 
   }

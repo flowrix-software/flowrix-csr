@@ -17,3 +17,5 @@ export { default as shopAllScript } from "./templates/Shop/ShopAll";
 export { default as SimpleProductScript } from "./templates/Product/SimpleProduct";
 export { default as SimpleAddtoCart } from "./templates/SimpleProduct/AddtoCard";
 export { default as MenuScript } from "./templates/MainMenu";
+export { default as DeliverymethodScript } from "./templates/Checkout/DeliveryMethod";
+export { default as BillingAddressScript } from "./templates/Checkout/BillingAddress";
