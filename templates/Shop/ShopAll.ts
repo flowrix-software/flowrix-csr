@@ -62,8 +62,6 @@ export default defineComponent({
       products,
       lastPage,
       ShopTemplate,
-      InnerBanner,
-      ProductCard
     };
   }
 });
