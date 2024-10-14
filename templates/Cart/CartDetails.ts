@@ -79,10 +79,30 @@ export default defineComponent({
     const CartDetail = defineAsyncComponent(() =>
       import('@/components/template_01/Cart/CartDetail.vue')
     )
-    
+    const couponCodes = ref('');
+    const ApplyCoupon = async (coupon:string) => {
+      try {
+          await fetchCart.ApplyCoupon({ code: coupon })
+          couponCodes.value = fetchCart.coupon
+          coupon = ''
+      } catch (error) {
+          coupon = ''
+      }
+  }
+  
+  const RemoveCoupon = async (coupon:string,removeIndex: number) => {
+      try {
+          await fetchCart.ApplyCoupon({ code: coupon, remove: removeIndex })
+          couponCodes.value = fetchCart.coupon
+          coupon = ''
+      } catch (error) {
+          coupon = ''
+      }
+  }
     return {
       useCartStore,
       fetchCart,
+      couponCodes,
       cartData, 
       removeFromCart, 
       isObjectEmpty,  
@@ -91,7 +111,9 @@ export default defineComponent({
       openBundle, 
       openAttributes, 
       showOptions,  
-      CartDetail
+      CartDetail,
+      ApplyCoupon,
+      RemoveCoupon
     };
   },
 });
