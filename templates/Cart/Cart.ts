@@ -4,7 +4,7 @@ import { useCartStore } from '../../stores/Cart'
 import { useAuthStore } from "../../stores/AuthStore";
 
 export default defineComponent({
-  name: 'ShopScript',  
+  name: 'CartScript',  
   setup() {
     const fetchCart = useCartStore()
 
@@ -23,7 +23,17 @@ export default defineComponent({
             return false
         }
     });
-    
+    const CartTemplate = defineAsyncComponent({
+      loader: async () => {
+        try {
+          // Attempt to dynamically import the specified template component
+          return await import(`@/components/template_01/Cart/MainView.vue`);
+        } catch (error) {
+          // If the specified template fails to load, fall back to SimpleProduct1.vue
+          return import(`@/components/template_01/Cart/MainView.vue`);
+        }
+      },
+    });
     const CartDetail = defineAsyncComponent(() =>
       import('@/components/template_01/Cart/CartDetail.vue')
     )
@@ -37,6 +47,7 @@ export default defineComponent({
       useAuthStore,
       isObjectEmpty,
       CartDetail,
+      CartTemplate,
       CartTotalAndPromo
     };
   },

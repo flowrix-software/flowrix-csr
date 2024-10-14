@@ -1,6 +1,6 @@
 import { useRoute } from 'vue-router';
 import { defineComponent, defineAsyncComponent } from "vue";
-import { useProduct } from '../../stores/Product';
+import { useProduct } from '../../stores/product';
 
 export default defineComponent({
   name: 'ProductScript',

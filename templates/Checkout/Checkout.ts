@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useCartStore } from "../../stores/Cart";
 import { useCheckoutStore } from "../../stores/Checkout";
 import { useCountryStore } from "../../stores/Country";
-import { useUserStore } from "../../stores/UserStore";
+import { useUserstore } from "../../stores/Userstore";
 
 export default defineComponent({
   name: 'FooterScript',  
@@ -13,7 +13,7 @@ export default defineComponent({
 	const cartStore = useCartStore()
 	const checkoutStore = useCheckoutStore()
 	const CountryData = useCountryStore()
-	const UserStore = useUserStore()
+	const UserStore = useUserstore()
 	const shippingFormEnabled = ref(true)
 	const countries = ref(CountryData.countries)
 	const cartData = computed(() => {

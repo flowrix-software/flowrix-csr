@@ -1,6 +1,5 @@
 import { ref ,computed,defineAsyncComponent} from 'vue'
 import { defineComponent } from 'vue';
-import banner from '@/assets/images/banner.webp'
 import { useShopStore } from '../../stores/ShopStore';
 
 export default defineComponent({

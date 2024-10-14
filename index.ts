@@ -10,12 +10,13 @@ export { useProduct } from "./stores/product";
 export { useSamples } from "./stores/Samples";
 export { useShopStore } from "./stores/ShopStore";
 export { useSubscription } from "./stores/Subscription";
-export { useUserStore } from "./stores/UserStore";
+export { useUserstore } from "./stores/Userstore";
 export { useCustomScript } from "./stores/CustomScripts/CustomeScript";
 
 export { default as shopAllScript } from "./templates/Shop/ShopAll";
 export { default as SimpleProductScript } from "./templates/Product/SimpleProduct";
 export { default as SimpleAddtoCart } from "./templates/SimpleProduct/AddtoCard";
 export { default as MenuScript } from "./templates/MainMenu";
+export { default as CartScript } from "./templates/Cart/Cart";
 export { default as DeliverymethodScript } from "./templates/Checkout/DeliveryMethod";
 export { default as BillingAddressScript } from "./templates/Checkout/BillingAddress";

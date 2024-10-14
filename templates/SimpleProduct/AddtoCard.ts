@@ -1,51 +1,51 @@
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, defineProps, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "../../stores/Cart";
-
 export default defineComponent({
-    name: "SimpleAddtoCart",
-    setup() {
+  name: "SimpleAddtoCart",
+
+  setup(props) {
     const router = useRouter();
     const cartStore = useCartStore();
-    const productQty = ref(1)
+    const productQty = ref(1);
 
     const addToCart = async (product, qty) => {
-      router.push({ name: "Cart" });
       cartStore.addToCart(product, qty);
+      router.push({ name: "Cart" });
     };
 
+    // const checkInCart = ref(0);
 
-    const checkInCart = ref(0)
-
-    const isProductInCart = (productId: string) => {
-        // Iterate over the cart object and check if the product ID exists
-        if (cartStore.cart.items) {
-            var isincart = Object.values(cartStore.cart.items).filter((v) => v.slug == productId)
-            if (isincart.length > 0) {
-                productQty.value = isincart[0].qty
-                checkInCart.value = 1
-            } else {
-                productQty.value = 0 
-                checkInCart.value = 0
-                
-            }
+    const checkInCart = (product) => {
+      // Check if the product is in the cart and update quantity if found
+      console.log(product)
+      if (cartStore.cart.items) {
+        const item = Object.values(cartStore.cart.items).find(
+          (v) => v.slug === product.slug
+        );
+        if (item) {
+          productQty.value = item.qty;
+          return true;
         }
-    }
+      }
+      productQty.value = 1;
+      return false;
+    };
 
     const incrementQuantity = () => {
-        productQty.value++;
+      productQty.value++;
     };
-    
+
     const decrementQuantity = () => {
       if (productQty.value > 1) {
         productQty.value--;
       }
     };
+    
     return {
       addToCart,
-      isProductInCart,
       productQty,
-checkInCart,
+      checkInCart,
       incrementQuantity,
       decrementQuantity
     };
