@@ -104,19 +104,19 @@ export const useCartStore = defineStore({
                     ['abndToken']: response.data.data.abndToken
                 }
                 let lastitem = response.data.data.lastitem
-                window.gtag = window.gtag || []
-                window.gtag('event', 'add_to_cart', {
-                    'items': [
-                    {
-                        'item_id': lastitem?.id,
-                        'item_name': lastitem?.name,
-                        'item_category': lastitem?.category,
-                        'quantity': 1, // or the quantity added
-                        'price': lastitem?.pricefloat,
-                    }
-                    ],
-                    ...lastitem?.options.values
-                });
+                // window.gtag = window.gtag || []
+                // window.gtag('event', 'add_to_cart', {
+                //     'items': [
+                //     {
+                //         'item_id': lastitem?.id,
+                //         'item_name': lastitem?.name,
+                //         'item_category': lastitem?.category,
+                //         'quantity': 1, // or the quantity added
+                //         'price': lastitem?.pricefloat,
+                //     }
+                //     ],
+                //     ...lastitem?.options.values
+                // });
             }
         },
 

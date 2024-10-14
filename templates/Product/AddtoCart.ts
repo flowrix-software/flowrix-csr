@@ -5,7 +5,7 @@ import { useCartStore } from "../../stores/Cart";
 import { useRoute, useRouter } from "vue-router"; // Import useRoute from Vue Router
 
 export default defineComponent({
-  name: "ProductScript",
+  name: "AddtoCart",
   props: {
     from: {
       type: String,
