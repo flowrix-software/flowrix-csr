@@ -42,17 +42,15 @@ export default defineComponent({
       },
     });
 
+
+     const ProductCard = defineAsyncComponent(() =>
+      import(`@/components/Product/ProductCard.vue`)
+    )
+
     const InnerBanner = defineAsyncComponent(
       () => import("@/components/InnerBanner.vue")
     );
 
-    const Pagination = defineAsyncComponent(
-      () => import("@/components/Others/Pagination.vue")
-    );
-
-    const ProductCard = defineAsyncComponent(
-      () => import("@/components/Product/ProductCard.vue")
-    );
 
     return {
       shop,
@@ -64,7 +62,8 @@ export default defineComponent({
       products,
       lastPage,
       ShopTemplate,
-      Pagination,
+      InnerBanner,
+      ProductCard
     };
   }
 });

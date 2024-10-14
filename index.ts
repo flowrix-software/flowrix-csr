@@ -19,3 +19,5 @@ export { default as SimpleAddtoCart } from "./templates/SimpleProduct/AddtoCard"
 export { default as AddtoCart } from "./templates/Product/AddtoCart";
 export { default as MenuScript } from "./templates/MainMenu";
 export { default as CartScript } from "./templates/Cart/Cart";
+export { default as DeliverymethodScript } from "./templates/Checkout/DeliveryMethod";
+export { default as BillingAddressScript } from "./templates/Checkout/BillingAddress";
