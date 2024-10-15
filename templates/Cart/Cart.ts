@@ -47,6 +47,7 @@ export default defineComponent({
       useAuthStore,
       isObjectEmpty,
       CartDetail,
+      fetchCart,
       CartTemplate,
       CartTotalAndPromo
     };
