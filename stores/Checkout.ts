@@ -205,6 +205,12 @@ export const useCheckoutStore = defineStore('checkout', {
         },
         saveToCheckoutSession(fieldsData: fieldData) {
             console.log(fieldsData)
+            fieldsData.firstname = fieldsData.billing_firstname
+            fieldsData.lastname = fieldsData.billing_lastname
+            fieldsData.mobile = fieldsData.billing_mobile
+            fieldsData.fullname = fieldsData.billing_firstname+' '+fieldsData.billing_lastname
+            fieldsData.billing_fullname = fieldsData.billing_firstname+' '+fieldsData.billing_lastname
+            fieldsData.shipping_fullname = fieldsData.billing_firstname+' '+fieldsData.billing_lastname
             this.checkoutSession.fields = {
                 ...this.checkoutSession.fields,
                 ...fieldsData,

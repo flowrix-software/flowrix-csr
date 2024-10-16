@@ -28,6 +28,18 @@ export default defineComponent({
       },
     });
 
+    const promotionTag = defineAsyncComponent({
+      loader: async () => {
+        try {
+          // Attempt to dynamically import the specified template component
+          return await import(`@/components/Others/promotionTag.vue`);
+        } catch (error) {
+          // If the specified template fails to load, fall back to SimpleProduct1.vue
+          return import(`@/components/Others/promotionTag.vue`);
+        }
+      },
+    });
+
     const checkInCart = ref(0)
     const productQty = ref(1)
     const isProductInCart = (productId: string) => {
@@ -68,13 +80,13 @@ export default defineComponent({
 
     return {
       ProdcutCard,
-      item,
       imagesize,
       addToCart,
       updateQuantity,
       checkInCart,
       productQty,
-      isProductInCart
+      isProductInCart,
+      promotionTag
     };
   },
 });

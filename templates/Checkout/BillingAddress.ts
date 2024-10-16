@@ -6,19 +6,31 @@ export default defineComponent({
   	const checkoutStore = useCheckoutStore()
 		const passwordShow = ref('password')
 		const password = ref('')
-		const passwordconfirmShow = ref('password')
+		const password_confirmationShow = ref('password')
 
 		const updateBillingAddress = ((billingfield)=> {
+			if(billingfield.register==false){
+				 billingfield.password = ''
+		    billingfield.password_confirmation = ''
+			}
     	checkoutStore.saveToCheckoutSession(billingfield)
 		})
 
 		const UserAccount = ref(true)
-
+		const timeout = ref('')
+		const CheckingUserAccount = ref(false)
 		const CheckUserAccount = (async(billingDetails,userEmail)=>{
-		    billingDetails.createacount = false
+			
+			console.log(timeout.value)
+			if (timeout.value) {
+      clearTimeout(timeout.value)
+    }
+			timeout.value = setTimeout(async() => {
+		    billingDetails.register = false
 		    billingDetails.password = ''
-		    billingDetails.passwordconfirm = ''
+		    billingDetails.password_confirmation = ''
 		    if(userEmail!=''){
+		    	CheckingUserAccount.value=true
 		        await checkoutStore.CheckUserAccount(userEmail)
 		        if(checkoutStore.checkCustomer.status=="Error"){
 		            UserAccount.value=true
@@ -28,6 +40,10 @@ export default defineComponent({
 		    }else{
 		        UserAccount.value=true
 		    }
+		    		  CheckingUserAccount.value=false
+		  },1000);
+
+		  
 		    
 		})
 
@@ -35,10 +51,11 @@ export default defineComponent({
 		checkoutStore,
 		passwordShow,
 		password,
-		passwordconfirmShow,
+		password_confirmationShow,
 		updateBillingAddress,
 		UserAccount,
-		CheckUserAccount
+		CheckUserAccount,
+		CheckingUserAccount
 	}
 
   }

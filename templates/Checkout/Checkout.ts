@@ -27,11 +27,13 @@ export default defineComponent({
 	    deliverymethod: sessiondata.fields ? sessiondata.fields.deliverymethod : '',
 	    billing_address: sessiondata.fields ? sessiondata.fields.billing_address : '',
 	    billing_country: 14,
+	    shippingasbilling:shippingFormEnabled.value,
 	    billing_state: sessiondata.fields ? sessiondata.fields.billing_state : '',
 	    billing_suburb: sessiondata.fields ? sessiondata.fields.billing_suburb : '',
 	    clientsceret: checkoutStore.publishableKey.clientsceret,
 	    billing_postcode: sessiondata.fields ? sessiondata.fields.billing_postcode : undefined,
 	    billing_mobile: sessiondata.fields ? sessiondata.fields.billing_mobile : '',
+	    
 	    billing_firstname: sessiondata.fields ? sessiondata.fields.billing_firstname : '',
 	    firstname: sessiondata.fields ? sessiondata.fields.firstname : '',
 	    billing_middlename: sessiondata.fields ? sessiondata.fields.billing_middlename : '',
@@ -55,9 +57,10 @@ export default defineComponent({
 	    email: sessiondata.fields ? sessiondata.fields.email : '',
 	    mobile: sessiondata.fields ? sessiondata.fields.mobile : '',
 	    authoritytoleave: undefined,
-	    createacount: '',
+	    register: '',
 	    password: '',
-	    passwordconfirm: '',
+	    password_confirmation: '',
+	    passwordStrengthValue:'',
 	    customernotes: '',
 	    ewayKey: '',
 	    eway_cardname: '',
@@ -73,8 +76,7 @@ export default defineComponent({
 	    save_card_details: 0,
 	})
 
-	const updateUserFieldsIfuserLogin = (async (sameasbilling=false)=>{
-   
+	const updateUserFieldsIfuserLogin = (async (sameasbilling=false)=>{   
     const LoggedInUser = UserStore.user
     if (Object.keys(LoggedInUser).length > 0) {
         const billingAddres = LoggedInUser.addresses.filter((address) => address.billing == 1)[0]
@@ -84,8 +86,7 @@ export default defineComponent({
         inputData.value.email = LoggedInUser.email
         inputData.value.billing_mobile = LoggedInUser.mobile
         if(sameasbilling == true){
-
-                inputData.value.billing_fullname = inputData.value.billing_fullname?inputData.value.billing_fullname:billingAddres.fullname
+                
                 inputData.value.billing_firstname = inputData.value.billing_firstname?inputData.value.billing_firstname:billingAddres.firstname
                 inputData.value.billing_lastname = inputData.value.billing_lastname?inputData.value.billing_lastname:billingAddres.lastname
                 inputData.value.billing_address = inputData.value.billing_address?inputData.value.billing_address:billingAddres.address
@@ -94,7 +95,7 @@ export default defineComponent({
                 inputData.value.billing_suburb = inputData.value.billing_suburb?inputData.value.billing_suburb:billingAddres.suburb
                 inputData.value.billing_mobile = inputData.value.billing_mobile?inputData.value.billing_mobile:billingAddres.mobile
 
-                inputData.value.shipping_fullname = inputData.value.billing_fullname?inputData.value.billing_fullname:billingAddres.fullname
+                
                 inputData.value.shipping_firstname = inputData.value.billing_firstname?inputData.value.billing_firstname:billingAddres.firstname
                 inputData.value.shipping_lastname = inputData.value.billing_lastname?inputData.value.billing_lastname:billingAddres.lastname
                 inputData.value.shipping_address = inputData.value.billing_address?inputData.value.billing_address:billingAddres.address
@@ -103,11 +104,10 @@ export default defineComponent({
                 inputData.value.shipping_suburb = inputData.value.billing_suburb?inputData.value.billing_suburb:billingAddres.suburb
                 inputData.value.shipping_mobile = inputData.value.billing_mobile?inputData.value.billing_mobile:billingAddres.mobile
         }
-         else{
-            
+         else{            
             
             if (billingAddres.length!=undefined) {
-                inputData.value.billing_fullname = inputData.value.billing_fullname?inputData.value.billing_fullname:billingAddres.fullname
+                
                 inputData.value.billing_firstname = inputData.value.billing_firstname?inputData.value.billing_firstname:billingAddres.firstname
                 inputData.value.billing_lastname = inputData.value.billing_lastname?inputData.value.billing_lastname:billingAddres.lastname
                 inputData.value.billing_address = inputData.value.billing_address?inputData.value.billing_address:billingAddres.address
@@ -134,33 +134,32 @@ export default defineComponent({
                 inputData.value.shipping_suburb = shippingAddres.suburb
                 inputData.value.shipping_mobile = shippingAddres.mobile
             }
-        }
+        }            
+    }
+    else if(Object.keys(LoggedInUser).length == 0 && sameasbilling == true){
             
-            
-        }
-        else if(Object.keys(LoggedInUser).length > 0 && sameasbilling == true){
-                inputData.value.shipping_fullname = inputData.value.billing_fullname?inputData.value.billing_fullname:''
-                inputData.value.shipping_firstname = inputData.value.billing_firstname?inputData.value.billing_firstname:''
-                inputData.value.shipping_lastname = inputData.value.billing_lastname?inputData.value.billing_lastname:''
-                inputData.value.shipping_address = inputData.value.billing_address?inputData.value.billing_address:''
-                inputData.value.shipping_postcode = inputData.value.billing_postcode?inputData.value.billing_postcode:''
-                inputData.value.shipping_state = inputData.value.billing_state?inputData.value.billing_state:''
-                inputData.value.shipping_suburb = inputData.value.billing_suburb?inputData.value.billing_suburb:''
-                inputData.value.shipping_mobile = inputData.value.billing_mobile?inputData.value.billing_mobile:''
-                
-        }
-         else{
-            
-            inputData.value.shipping_fullname = ''
-            inputData.value.shipping_firstname = ''
-            inputData.value.shipping_lastname = ''
-            inputData.value.shipping_address = ''
-            inputData.value.shipping_postcode = ''
-            inputData.value.shipping_state = ''
-            inputData.value.shipping_suburb = ''
-            inputData.value.shipping_mobile = ''
-            
-         }
+            inputData.value.shipping_firstname = inputData.value.billing_firstname?inputData.value.billing_firstname:'s'
+            inputData.value.shipping_lastname = inputData.value.billing_lastname?inputData.value.billing_lastname:''
+            inputData.value.shipping_address = inputData.value.billing_address?inputData.value.billing_address:''
+            inputData.value.shipping_postcode = inputData.value.billing_postcode?inputData.value.billing_postcode:''
+            inputData.value.shipping_state = inputData.value.billing_state?inputData.value.billing_state:''
+            inputData.value.shipping_suburb = inputData.value.billing_suburb?inputData.value.billing_suburb:''
+            inputData.value.shipping_mobile = inputData.value.billing_mobile?inputData.value.billing_mobile:''
+          
+    }
+     else{
+        
+        inputData.value.shipping_fullname = ''
+        inputData.value.shipping_firstname = ''
+        inputData.value.shipping_lastname = ''
+        inputData.value.shipping_address = ''
+        inputData.value.shipping_postcode = ''
+        inputData.value.shipping_state = ''
+        inputData.value.shipping_suburb = ''
+        inputData.value.shipping_mobile = ''
+        
+     }
+         checkoutStore.saveToCheckoutSession(inputData.value)
 
 	})
 
@@ -216,7 +215,7 @@ export default defineComponent({
 
 	}
 
-	const step1Valid = computed(() => inputData.value.billing_firstname !== '' && inputData.value.billing_lastname !== '' && inputData.value.email !== '' && inputData.value.billing_mobile !== '' && inputData.value.billing_address !== '' && inputData.value.billing_suburb !== '' && inputData.value.billing_postcode !== undefined);
+	const step1Valid = computed(() => ((inputData.value.register==false && inputData.value.password=='' && inputData.value.password_confirmation=='') || (inputData.value.register==true && inputData.value.password!='' && inputData.value.password_confirmation!='' &&inputData.value.password==inputData.value.password_confirmation && inputData.value.passwordStrengthValue=='100')) && inputData.value.billing_firstname !== '' && inputData.value.billing_lastname !== '' && inputData.value.billing_email !== '' && inputData.value.billing_mobile !== '' && inputData.value.billing_address !== '' && inputData.value.billing_suburb !== '' && inputData.value.billing_postcode !== '' && inputData.value.billing_state !== '');
 	const step2Valid = computed(() => step1Valid.value && inputData.value.paymentmethod !== '');
 	const proceedtoPrev = () => {
 	    step_2.value = false
@@ -392,6 +391,7 @@ export default defineComponent({
 		resetpaymentoptions,
 		handleSubmit,
 		shippingFormEnabled,
+		updateUserFieldsIfuserLogin,
 		step_2,
 		step1Valid,
 		step2Valid,

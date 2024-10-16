@@ -1,30 +1,42 @@
 import { useRoute } from 'vue-router';
-import { defineComponent, defineAsyncComponent } from "vue";
+import {ref,watch, defineComponent, defineAsyncComponent,computed } from "vue";
 import { useProduct } from '../../stores/product';
 
 export default defineComponent({
   name: 'ProductScript',
   setup() {
     const route = useRoute();
-    const data = useProduct().data || null;
+    const data =  computed(() => useProduct().data || null);
+    const ProductComponent = ref('')
+    const scrollToPosition = (top) => {
+        setTimeout(function(){
+        window.scrollTo({
+          top: top,
+          behavior: 'smooth'
+        });  
+      },0);
+      };
+     watch(
+      () => route.params.slug, // The route path or any reactive route property
+      (newSlug, oldSlud) => {
+        ProductComponent.value = defineAsyncComponent({
+          loader: async () => {
+            try {
+              // Attempt to dynamically import the specified template component
+              return await import(`@/components/template_0${data.value.template}/Product/${data.value.type}Product.vue`);
+            } catch (error) {
+              // If the specified template fails to load, fall back to SimpleProduct1.vue
+              return import(`@/components/template_01/Product/${data.value.type}Product.vue`);
+            }
+          },
+        });
+        scrollToPosition(0);
+      },{ immediate: true })
 
-    const ProdcutComponent = defineAsyncComponent({
-      loader: async () => {
-        try {
-          // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_0${data.template}/Product/${data.type}Product.vue`);
-        } catch (error) {
-          // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/template_01/Product/${data.type}Product.vue`);
-        }
-      },
-    });
-
-
-
+      
     return {
       data,
-      ProdcutComponent
+      ProductComponent
     };
   },
 });
