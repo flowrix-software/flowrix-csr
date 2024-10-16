@@ -4,7 +4,7 @@ import { useCartStore } from './Cart'
 
 export const useProduct = defineStore('Product', {
   state: () => ({
-    data: [],
+    data: {},
   }),
   actions: {
     async getProduct(slug:string,queryperameters='') {
