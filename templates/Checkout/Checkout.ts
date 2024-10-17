@@ -369,6 +369,10 @@ export default defineComponent({
 		import('@/components/template_01/Checkout/PaymentMethods/PaymentMethods.vue')
 	)
 
+	const CreateAccount = defineAsyncComponent(() =>
+		import('@/components/template_01/Checkout/CreateAccount.vue')
+	)
+
 	return{
 		inputData,
 		cartData,
@@ -380,6 +384,8 @@ export default defineComponent({
 		ShippingMethodForm,
 		Calculations,
 		Order,
+		states,
+		CreateAccount,
 		AuthorityToLeave,
 		totalPrice,
 		deliveryMethods,
