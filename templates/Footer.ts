@@ -1,5 +1,6 @@
-import { ref, defineComponent, defineAsyncComponent  } from 'vue';
+import { ref, computed, defineComponent, defineAsyncComponent  } from 'vue';
 import { useSubscription } from '../stores/Subscription';
+import { useNavMenu } from '../stores/NavMenu'
 
 export default defineComponent({
   name: 'FooterScript',  
@@ -8,7 +9,13 @@ export default defineComponent({
       const email = ref('');
       const successMessage = ref('');
       const errorMessage = ref('');
-
+      const NavMenu = useNavMenu()
+      const menuData = computed(() =>{
+      
+        const headmenu =  NavMenu.Menu.filter((menu) => menu.location=='footer')[0]
+        return headmenu
+   
+       });
       const handleSubmit = async (event: Event) => {
         event.preventDefault();
         try {
@@ -50,6 +57,7 @@ export default defineComponent({
 return {
       subscriptionStore,
       email,
+      menuData,
       successMessage,
       errorMessage,
       handleSubmit,
