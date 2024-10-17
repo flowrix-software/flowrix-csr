@@ -151,7 +151,7 @@ export const useCheckoutStore = defineStore('checkout', {
                 
                     const apiUrl = `customer/checkout`
                     
-
+                    formData.billing_address2 = formData.billing_address
                     const response = await axiosInstance.post(apiUrl, formData,{
                         headers: {
                             'Content-Type': 'application/json'

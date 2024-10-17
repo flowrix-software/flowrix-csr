@@ -6,8 +6,8 @@ export default defineComponent({
   	const checkoutStore = useCheckoutStore()
   	const updateDeliveryMethod = (deliveryMethod)=>{
 	    // emit('getPreferences');
-	    checkoutStore.saveToCheckoutSession(deliveryMethod)
-	}
+		    checkoutStore.saveToCheckoutSession(deliveryMethod)
+		}
 
 	return{
 		checkoutStore,
