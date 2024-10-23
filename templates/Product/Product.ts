@@ -26,7 +26,7 @@ export default defineComponent({
               const template = data.value.template;
               const type = data.value.type;
               
-              const componentPath = `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`;
+              const componentPath = `@/components/template_0${template}/Product/${type}Product.vue`;
 
               try {
                 // Check if the component exists in the components map
