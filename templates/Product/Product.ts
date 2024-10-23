@@ -30,7 +30,9 @@ export default defineComponent({
               `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`
             );
           } catch (error) {
-            return import(`@/components/template_01/Product/${data.value.type}Product.vue`);
+            const template = data.value.template;
+            const type = data.value.type;
+            return import(`@/components/template_01/Product/${type}Product.vue`);
           }
         },
       });
