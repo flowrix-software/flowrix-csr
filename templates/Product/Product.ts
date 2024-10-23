@@ -29,7 +29,7 @@ export default defineComponent({
               // If the specified template fails to load, fall back to SimpleProduct1.vue
               console.log(newdata.value);
               if(newdata.value){
-                return import(`@/components/template_01/Product/customProduct.vue`);
+                return import(`@/components/template_01/Product/${newdata.value.type}Product.vue`);
               }
             }
           },
