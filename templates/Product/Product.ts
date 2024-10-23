@@ -38,7 +38,7 @@ export default defineComponent({
                 }
               } catch (error) {
                 // Fallback component
-                return await import('@/components/template_01/Product/customProduct.vue');
+                // return await import('@/components/template_01/Product/customProduct.vue');
               }
             },
           });
