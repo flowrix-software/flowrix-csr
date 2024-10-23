@@ -27,8 +27,7 @@ export default defineComponent({
               return await import(`@/components/template_0${newdata.value.template}/Product/${newdata.value.type}Product.vue`);
             } catch (error) {
               // If the specified template fails to load, fall back to SimpleProduct1.vue
-              const template = `@/components/template_01/Product/${newdata.value.type}Product.vue`
-              return import(template);
+              return import('@/components/template_01/Product/'+newdata.value.type+'Product.vue');
             }
           },
         });
