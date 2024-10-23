@@ -1,7 +1,7 @@
 {
   "name": "vuebase",
   "version": "0.0.1",
-  "description": "common components for Vuejs v2.x ",
+  "description": "Common components for Vue.js v2.x",
   "main": "index.ts",
   "scripts": {
     "postinstall": "npm install"
@@ -13,10 +13,12 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^1.7.7",
-    "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
-    "vue": "^3.5.11",
-    "vue-demi": "^0.14.10",
-    "vue-router": "^4.3.3"
+    "pinia-plugin-persistedstate": "^3.2.1"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0",                
+    "pinia": "^2.0.0",               
+    "vue-router": "^4.0.0",          
+    "vue-demi": "^0.14.0"            
   }
 }
