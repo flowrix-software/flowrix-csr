@@ -22,12 +22,15 @@ export default defineComponent({
         ProductComponent.value = defineAsyncComponent({
           loader: async () => {
             try {
-                console.log(newdata);
+                
               // Attempt to dynamically import the specified template component
               return await import(`@/components/template_0${newdata.value.template}/Product/${newdata.value.type}Product.vue`);
             } catch (error) {
               // If the specified template fails to load, fall back to SimpleProduct1.vue
-              return import(`@/components/template_01/Product/customProduct.vue`);
+              console.log(newdata.value);
+              if(newdata.value){
+                return import(`@/components/template_01/Product/customProduct.vue`);
+              }
             }
           },
         });
