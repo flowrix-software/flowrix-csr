@@ -19,6 +19,7 @@ export default defineComponent({
      watch(
       () => data, // The route path or any reactive route property
       async(newdata) => {
+        const datababu =  computed(() => useProduct().data || null);
         ProductComponent.value = defineAsyncComponent({
           loader: async () => {
             try {
@@ -27,9 +28,9 @@ export default defineComponent({
               return await import(`@/components/template_0${newdata.value.template}/Product/${newdata.value.type}Product.vue`);
             } catch (error) {
               // If the specified template fails to load, fall back to SimpleProduct1.vue
-              console.log(newdata.value);
-              if(newdata.value){
-                return import(`@/components/template_01/Product/${newdata.value.type}Product.vue`);
+              console.log(datababu.value);
+              if(datababu.value){
+                return import(`@/components/template_01/Product/${datababu.value.type}Product.vue`);
               }
             }
           },
