@@ -17,17 +17,17 @@ export default defineComponent({
       },0);
       };
      watch(
-      () => route.params.slug, // The route path or any reactive route property
-      (newSlug, oldSlud) => {
+      () => data, // The route path or any reactive route property
+      async(newdata) => {
         ProductComponent.value = defineAsyncComponent({
           loader: async () => {
             try {
-                console.log(data);
+                console.log(newdata);
               // Attempt to dynamically import the specified template component
-              return await import(`@/components/template_0${data.value.template}/Product/${data.value.type}Product.vue`);
+              return await import(`@/components/template_0${newdata.value.template}/Product/${newdata.value.type}Product.vue`);
             } catch (error) {
               // If the specified template fails to load, fall back to SimpleProduct1.vue
-              return import(`@/components/template_01/Product/${data.value.type}Product.vue`);
+              return import(`@/components/template_01/Product/${newdata.value.type}Product.vue`);
             }
           },
         });
