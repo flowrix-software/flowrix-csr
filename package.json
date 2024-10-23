@@ -4,7 +4,7 @@
   "description": "common components for Vuejs v2.x ",
   "main": "index.ts",
   "scripts": {
-    "postinstall": "npm install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "vue"
