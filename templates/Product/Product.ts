@@ -22,6 +22,7 @@ export default defineComponent({
         ProductComponent.value = defineAsyncComponent({
           loader: async () => {
             try {
+                console.log(data);
               // Attempt to dynamically import the specified template component
               return await import(`@/components/template_0${data.value.template}/Product/${data.value.type}Product.vue`);
             } catch (error) {
