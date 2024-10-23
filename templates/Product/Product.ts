@@ -24,8 +24,7 @@ export default defineComponent({
           ProductComponent.value = defineAsyncComponent({
             loader: async () => {
               try {
-                const template = data.value.template;
-                const type = data.value.type;
+                
                 const componentPath = `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`;
 
                 if (componentContext.keys().includes(componentPath)) {
@@ -34,8 +33,9 @@ export default defineComponent({
                   throw new Error('Component not found');
                 }
               } catch (error) {
+                const type = data.value.type;
                 // Fallback component
-                return await import('@/components/template_01/Product/customProduct.vue');
+                return await import('@/components/template_01/Product/${type}Product.vue');
               }
             },
           });
