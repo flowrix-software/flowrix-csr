@@ -12,6 +12,7 @@ export { useShopStore } from "./stores/ShopStore";
 export { useSubscription } from "./stores/Subscription";
 export { useUserstore } from "./stores/Userstore";
 export { useCustomScript } from "./stores/CustomScripts/CustomeScript";
+export { useGalleryStore } from "./stores/Galleries";
 
 export { default as HeaderScript } from "./templates/Header";
 export { default as ShopScript } from "./templates/Shop/Shop";
