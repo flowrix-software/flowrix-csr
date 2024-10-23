@@ -17,24 +17,23 @@ export default defineComponent({
       },0);
       };
      watch(
-      () => data, // The route path or any reactive route property
-      async(newdata) => {
-        const datababu =  computed(() => useProduct().data || null);
+      () => route.params.slug, // The route path or any reactive route property
+      (newSlug, oldSlud) => {
         ProductComponent.value = defineAsyncComponent({
-          loader: async () => {
-            try {
-                
-              // Attempt to dynamically import the specified template component
-              return await import(`@/components/template_0${newdata.value.template}/Product/${newdata.value.type}Product.vue`);
-            } catch (error) {
-              // If the specified template fails to load, fall back to SimpleProduct1.vue
-              console.log(datababu.value);
-              if(datababu.value.type=='custom'){
-                return import(`@/components/template_01/Product/customProduct.vue`);
-              }
-            }
-          },
-        });
+        loader: async () => {
+          try {
+            const template = data.value.template;
+            const type = data.value.type;
+
+            return await import(
+              /* webpackChunkName: "[request]" */
+              `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`
+            );
+          } catch (error) {
+            return import(`@/components/template_01/Product/${data.value.type}Product.vue`);
+          }
+        },
+      });
         scrollToPosition(0);
       },{ immediate: true })
 
