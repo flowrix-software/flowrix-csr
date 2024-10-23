@@ -35,7 +35,7 @@ export default defineComponent({
               } catch (error) {
                 const type = data.value.type;
                 // Fallback component
-                return await import('@/components/template_01/Product/${type}Product.vue');
+                // return await import('@/components/template_01/Product/${type}Product.vue');
               }
             },
           });
