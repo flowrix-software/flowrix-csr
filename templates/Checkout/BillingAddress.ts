@@ -1,8 +1,10 @@
 import { ref,defineComponent } from 'vue';
 import { useCheckoutStore } from "../../stores/Checkout";
+import { usePasswordFormat } from "../../composables/usePasswordFormatter";
+
 export default defineComponent({
   name: 'BillingAddressScript',  
-  setup() {	
+  setup(inputData) {	
   	const checkoutStore = useCheckoutStore()
 		const passwordShow = ref('password')
 		const password = ref('')
@@ -15,6 +17,11 @@ export default defineComponent({
 			}
     	checkoutStore.saveToCheckoutSession(billingfield)
 		})
+
+
+			const {passwordStrength,passwordStrengthClass,passwordStrengthValue,passwordStrengthWidth,passwordStrengthTextColor} = usePasswordFormat(password,inputData);
+		
+
 
 		const UserAccount = ref(true)
 		const timeout = ref('')
@@ -55,7 +62,12 @@ export default defineComponent({
 		updateBillingAddress,
 		UserAccount,
 		CheckUserAccount,
-		CheckingUserAccount
+		CheckingUserAccount,
+		passwordStrength,
+    passwordStrengthClass,
+    passwordStrengthValue,
+    passwordStrengthWidth,
+    passwordStrengthTextColor
 	}
 
   }

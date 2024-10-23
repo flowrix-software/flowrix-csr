@@ -7,7 +7,7 @@ export const useProduct = defineStore('Product', {
     data: {},
   }),
   actions: {
-    async getProduct(slug:string,queryperameters='') {
+    async getProduct(slug,queryperameters='') {
       try {
         let attributes={};
         if(queryperameters.customize){
