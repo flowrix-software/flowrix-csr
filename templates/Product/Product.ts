@@ -29,7 +29,7 @@ export default defineComponent({
             } catch (error) {
               // If the specified template fails to load, fall back to SimpleProduct1.vue
               console.log(datababu.value);
-              if(datababu.value){
+              if(datababu.value.type=='custom'){
                 return import(`@/components/template_01/Product/${datababu.value.type}Product.vue`);
               }
             }
