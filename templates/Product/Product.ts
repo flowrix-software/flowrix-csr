@@ -15,27 +15,30 @@ export default defineComponent({
           behavior: 'smooth'
         });  
       },0);
-      };
+      };      
+        const componentContext = require.context('@/components/', true, /\.vue$/);
      watch(
       () => route.params.slug, // The route path or any reactive route property
       (newSlug, oldSlud) => {
-        ProductComponent.value = defineAsyncComponent({
-        loader: async () => {
-          try {
-            const template = data.value.template;
-            const type = data.value.type;
 
-            return await import(
-              /* webpackChunkName: "[request]" */
-              `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`
-            );
-          } catch (error) {
-            const template = data.value.template;
-            const type = data.value.type;
-            return import(`@/components/template_01/Product/${type}Product.vue`);
-          }
-        },
-      });
+          ProductComponent.value = defineAsyncComponent({
+            loader: async () => {
+              try {
+                const template = data.value.template;
+                const type = data.value.type;
+                const componentPath = `@/components/template_${template.padStart(2, '0')}/Product/${type}Product.vue`;
+
+                if (componentContext.keys().includes(componentPath)) {
+                  return await componentContext(componentPath);
+                } else {
+                  throw new Error('Component not found');
+                }
+              } catch (error) {
+                // Fallback component
+                return await import('@/components/template_01/Product/customProduct.vue');
+              }
+            },
+          });
         scrollToPosition(0);
       },{ immediate: true })
 
