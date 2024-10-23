@@ -15,34 +15,21 @@ export default defineComponent({
           behavior: 'smooth'
         });  
       },0);
-      };      
-        const components = import.meta.glob('@/components/template_*/Product/*Product.vue');
+      };
      watch(
       () => route.params.slug, // The route path or any reactive route property
-      (newSlug, oldSlud) => {         
-
-          ProductComponent.value = defineAsyncComponent({
-            loader: async () => {
-              const template = data.value.template;
-              const type = data.value.type;
-              
-              const componentPath = `@/components/template_0${template}/Product/${type}Product.vue`;
-
-              try {
-                // Check if the component exists in the components map
-                if (components[componentPath]) {
-                  // Load the component dynamically
-                  return await components[componentPath]();
-                } else {
-                  throw new Error('Component not found');
-                }
-              } catch (error) {
-                // Fallback component
-                // return await import('@/components/template_01/Product/customProduct.vue');
-              }
-            },
-          });
-
+      (newSlug, oldSlud) => {
+        ProductComponent.value = defineAsyncComponent({
+          loader: async () => {
+            try {
+              // Attempt to dynamically import the specified template component
+              return await import(`/src/components/template_0${data.value.template}/Product/${data.value.type}Product.vue`);
+            } catch (error) {
+              // If the specified template fails to load, fall back to SimpleProduct1.vue
+              return import(`/src/components/template_01/Product/${data.value.type}Product.vue`);
+            }
+          },
+        });
         scrollToPosition(0);
       },{ immediate: true })
 
