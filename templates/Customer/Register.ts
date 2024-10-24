@@ -1,6 +1,6 @@
 import {defineComponent, defineAsyncComponent } from "vue";
 import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import { useAuthStore } from '../../stores/AuthStore';
 import { useTogglePassword } from '../../composables/useTooglePassword'
 import { usePasswordFormat } from '../../composables/usePasswordFormatter'
@@ -17,8 +17,6 @@ export default defineComponent({
 
 	// Use composables
 	const { showPassword, togglePassword } = useTogglePassword()
-	const password = ref<string | null>(null)
-	const confirmPassword = ref<string | null>(null)
 
 	// Password format composable
 	const {
@@ -29,28 +27,17 @@ export default defineComponent({
 	} = usePasswordFormat(password,inputData.value)
 
 	// Form fields
-	const firstName = ref<string | null>(null)
-	const lastName = ref<string | null>(null)
-	const email = ref<string | null>(null)
 	const { inputValue: mobile, errorMessage, handleInput } = useNumberInput();
 
 	// Signup function
 	const signupFunction = async () => {
-	    if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
+	    if (!firstName.value || !lastName.value || !email.value || !password.value || !passwordconfirmation.value) {
 	        console.error('All fields are required')
 	        return
 	    }
 
 	    try {
-	        await authStore.addCustomer({
-	            firstname: firstName.value,
-	            lastname: lastName.value,
-	            email: email.value,
-	            mobile: mobile.value,
-	            password: password.value,
-	            email_confirmation: email.value,
-	            password_confirmation: confirmPassword.value
-	        })
+	        await authStore.addCustomer(inputData)
 
 	        if (authStore.responseData.status === 'Success') {
 	            setTimeout(() => {
@@ -75,9 +62,6 @@ export default defineComponent({
 		passwordStrengthClass,
 		passwordStrengthTextColor,
 		passwordStrengthWidth,
-		firstName,
-		lastName,
-		email,
 		inputValue,
 		errorMessage,
 		signupFunction
