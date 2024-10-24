@@ -53,11 +53,10 @@ export default defineComponent({
     return {
       shop,
       AllShop,
-      CheckProducts,
       ShopTemplate,
       InnerBanner,
-      Pagination,
-      ProductCard
+      ProductCard,
+      CheckProducts
     };
   },
 });
