@@ -24,7 +24,7 @@ export default defineComponent({
 	    passwordStrengthClass,
 	    passwordStrengthTextColor,
 	    passwordStrengthWidth
-	} = usePasswordFormat(password,inputData.value)
+	} = usePasswordFormat(inputData.value.password,inputData.value)
 
 	// Form fields
 	const { inputValue: mobile, errorMessage, handleInput } = useNumberInput();
