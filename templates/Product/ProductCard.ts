@@ -23,7 +23,7 @@ export default defineComponent({
           return await import(`@/components/template_${props.template}/Product/ProductCard.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/template_01/Product/ProductCard.vue`);
+          return import('@/components/template_01/Product/ProductCard.vue');
         }
       },
     });
@@ -32,10 +32,10 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/Others/promotionTag.vue`);
+          return await import('@/components/Others/promotionTag.vue');
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/Others/promotionTag.vue`);
+          return import('@/components/Others/promotionTag.vue');
         }
       },
     });

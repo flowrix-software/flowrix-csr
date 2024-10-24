@@ -1,30 +1,5 @@
 import { defineStore } from 'pinia';
 import axiosInstance from '../axios/axios-instance';
-
-
-interface UserProfile {
-  access_token: string;
-  isAuthenticated: boolean;
-  user: any;
-}
-
-interface UserState {
-  user: UserProfile | null;
-  countries: any[];
-  order_history: any[];
-  quotes_history: any[];
-  new_address: any[];
-  cards: any[];
-  taxInvoice: any[];
-  update_address: any[];
-  delete_address : any[];
-  update_profile: any[];
-  errorResponseData: string;
-  access_token: string;
-  isAuthenticated: boolean;
-  successResponse: string;
-}
-
 export const useUserstore = defineStore('Userstore', {
   state: (): UserState => ({
     user: [],
@@ -46,6 +21,7 @@ export const useUserstore = defineStore('Userstore', {
     resetErrorResponseData() {
       this.errorResponseData = '';
     },
+
     async fetchUserData() {
       try {
         const accessToken = this.getAccessTokenFromlocalStorage();
@@ -68,7 +44,6 @@ export const useUserstore = defineStore('Userstore', {
       }
     },
     
-
     async getCountries() {
       try {
         const apiUrl = 'countries';
@@ -97,22 +72,42 @@ export const useUserstore = defineStore('Userstore', {
         }
       }
     },
-    async getTaxInvoice(orderNo: string) {
+
+    async getTaxInvoice(orderNo) {
       try {
         const accessToken = this.getAccessTokenFromlocalStorage();
         const apiUrl = `customer/orders/${orderNo}/tax-invoice`;
         const response = await axiosInstance.get(apiUrl, {
           headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
           },
+          responseType: 'blob',
         });
-        this.taxInvoice = response.data;
-      } catch (error: any) {
+        console.log(response)
+        const file = new Blob([response.data], { type: 'application/pdf' });
+
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(file);
+        link.download = `Order-${orderNo}.pdf`; // Name of the file to be downloaded
+
+        // Append link to body temporarily and simulate click
+        document.body.appendChild(link);
+        link.click();
+
+        // Remove the temporary link from the document
+        document.body.removeChild(link);
+
+        // this.taxInvoice = response.data;
+      } catch (error) {
         if (error.response) {
           this.errorResponseData = error.response.data;
         }
       }
     },
+    
     async getQuotesHistory() {
       try {
         const accessToken = this.getAccessTokenFromlocalStorage();

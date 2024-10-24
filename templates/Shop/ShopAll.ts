@@ -23,10 +23,10 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_01/Shop/ShopAll.vue`);
+          return await import('@/components/template_01/Shop/ShopAll.vue');
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/template_01/Shop/ShopAll.vue`);
+          return import('@/components/template_01/Shop/ShopAll.vue');
         }
       }
     });
@@ -34,17 +34,17 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/Others/Pagination.vue`);
+          return await import('@/components/Others/Pagination.vue');
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/Others/Pagination.vue`);
+          return import('@/components/Others/Pagination.vue');
         }
       },
     });
 
 
      const ProductCard = defineAsyncComponent(() =>
-      import(`@/components/Product/ProductCard.vue`)
+      import('@/components/Product/ProductCard.vue')
     )
 
     const InnerBanner = defineAsyncComponent(

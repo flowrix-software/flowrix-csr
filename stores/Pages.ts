@@ -19,7 +19,7 @@ export const usePages = defineStore('Pages', {
         async getPage(page: string) {
             try {
                 this.error = null;
-                this.page = null;
+                // this.page = null;
                 const apiUrl = `page/${page}`;
                 const response = await axiosInstance.get(apiUrl);
                 if (response.status === 200) {
