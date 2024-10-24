@@ -48,7 +48,8 @@ export const useWebForms = defineStore('Webform', {
 
           if (response.status == 200) {
             
-          this.webFormReturn = response.data
+            this.webFormReturn = response.data
+          }
         
       } catch (error) {
         this.webFormReturn = error
