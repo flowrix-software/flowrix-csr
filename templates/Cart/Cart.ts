@@ -27,10 +27,10 @@ export default defineComponent({
       loader: async () => {
         try {
           // Attempt to dynamically import the specified template component
-          return await import(`@/components/template_01/Cart/MainView.vue`);
+          return await import(`/src/components/template_01/Cart/MainView.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`@/components/template_01/Cart/MainView.vue`);
+          return import(`/src/components/template_01/Cart/MainView.vue`);
         }
       },
     });
