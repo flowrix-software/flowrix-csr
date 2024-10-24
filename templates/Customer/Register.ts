@@ -31,13 +31,14 @@ export default defineComponent({
 
 	// Signup function
 	const signupFunction = async () => {
-	    if (!firstName.value || !lastName.value || !email.value || !password.value || !passwordconfirmation.value) {
+	    if (!inputData.value.firstname || !inputData.value.lastname || !inputData.value.email || !inputData.value.password || !inputData.value.password_confirmation) {
 	        console.error('All fields are required')
 	        return
 	    }
 
 	    try {
-	        await authStore.addCustomer(inputData)
+	    	inputData.value.email_confirmation = inputData.value.email
+	        await authStore.addCustomer(inputData.value)
 
 	        if (authStore.responseData.status === 'Success') {
 	            setTimeout(() => {
@@ -62,7 +63,6 @@ export default defineComponent({
 		passwordStrengthClass,
 		passwordStrengthTextColor,
 		passwordStrengthWidth,
-		inputValue,
 		errorMessage,
 		signupFunction
 	}
