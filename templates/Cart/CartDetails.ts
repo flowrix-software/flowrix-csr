@@ -13,6 +13,11 @@ export default defineComponent({
       const cartItems = fetchCart.cart.items
       return cartItems
     })
+    
+    const cartTotal = computed(() => {
+      const cartTotals = fetchCart.cart.totals
+      return cartTotals
+    })
 
     const removeFromCart = (productId: string,product: Object) => {
       fetchCart.removeFromCart(productId)
@@ -103,7 +108,8 @@ export default defineComponent({
       useCartStore,
       fetchCart,
       couponCodes,
-      cartData, 
+      cartData,
+      cartTotal,
       removeFromCart, 
       isObjectEmpty,  
       dvidedsummary,  
