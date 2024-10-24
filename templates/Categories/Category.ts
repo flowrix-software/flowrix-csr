@@ -32,7 +32,7 @@ export default defineComponent({
           return await import(`/src/components/template_0${Category.template}/Category/Category.vue`);
         } catch (error) {
           // If the specified template fails to load, fall back to SimpleProduct1.vue
-          return import(`/src/components/template_01/Category/Category.vue`);
+          return import('@/components/template_01/Category/Category.vue');
         }
       },
     });
@@ -42,7 +42,7 @@ export default defineComponent({
         try {
           return await import(`/src/components/template_0${Category.template}/Category/Content.vue`);
         } catch (error) {          
-          return import(`/src/components/template_01/Category/Content.vue`);
+          return import('@/components/template_01/Category/Content.vue');
         }
       },
     });
